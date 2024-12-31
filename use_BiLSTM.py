@@ -44,3 +44,20 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 # Train the model
 model.fit(X_train, y_train, epochs=20, batch_size=32, validation_split=0.3)
 
+# Evaluate the model on the test set
+loss, accuracy = model.evaluate(X_test, y_test)
+
+# Predict on the test set
+y_pred_prob = model.predict(X_test)
+y_pred = np.argmax(y_pred_prob, axis=1)
+
+# Calculate evaluation metrics
+f1 = f1_score(y_test, y_pred, average='weighted')
+precision = precision_score(y_test, y_pred, average='weighted')
+recall = recall_score(y_test, y_pred, average='weighted')
+
+# Display the results
+print(f'Accuracy: {accuracy}')
+print(f'F1 Score: {f1}')
+print(f'Precision: {precision}')
+print(f'Recall: {recall}')
